@@ -26,10 +26,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests pyyaml python-dateutil
 
-      - name: Copy config file
+      - name: Ensure config file exists
         run: |
           mkdir -p config
-          cp config/config.yaml config/config.yaml
+          if [ ! -f config/config.yaml ]; then
+            echo "Config file not found, creating from config/config.yaml"
+            cp config/config.yaml config/config.yaml
+          fi
 
       - name: Create video
         run: |
