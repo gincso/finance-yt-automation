@@ -233,10 +233,12 @@ if __name__ == "__main__":
     parser.add_argument("--batch", type=int, default=1, help="Run batch of videos")
     parser.add_argument("--continuous", action="store_true", help="Run in continuous mode")
     parser.add_argument("--single", action="store_true", help="Run single video workflow")
+    parser.add_argument("--config", type=str, default=None, help="Path to config file")
     
     args = parser.parse_args()
     
-    config_path = "/data/data/com.termux/files/home/finance-yt-automation/config/config.yaml"
+    # Use environment variable or default path
+    config_path = args.config or os.getenv("CONFIG_PATH", "config/config.yaml")
     orchestrator = AutomationOrchestrator(config_path)
     
     try:

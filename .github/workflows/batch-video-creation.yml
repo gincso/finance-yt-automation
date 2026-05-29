@@ -28,11 +28,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests pyyaml python-dateutil
-      
+
+      - name: Copy config file
+        run: |
+          mkdir -p config
+          cp config/config.yaml config/config.yaml
+
       - name: Create batch of videos
         run: |
           cd scripts
           python3 orchestrator.py --batch ${{ github.event.inputs.batch_size }}
+        env:
+          CONFIG_PATH: config/config.yaml
       
       - name: Upload output
         uses: actions/upload-artifact@v4

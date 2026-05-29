@@ -172,7 +172,10 @@ class VideoCreator:
 
 # Example usage
 if __name__ == "__main__":
-    config_path = "/data/data/com.termux/files/home/finance-yt-automation/config/config.yaml"
+    import os
+    
+    # Use environment variable or default path
+    config_path = os.getenv("CONFIG_PATH", "config/config.yaml")
     
     creator = VideoCreator(config_path)
     
