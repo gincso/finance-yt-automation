@@ -1,0 +1,141 @@
+content_strategy:
+  channel_name: Wealth Wisdom
+  channel_description: Automated finance insights and market analysis
+  target_audience: Beginners to intermediate investors
+  content_niches:
+  - Personal Finance Tips
+  - Investment Strategies
+  - Stock Market Analysis
+  - Cryptocurrency Basics
+  - Budgeting & Saving
+  - Retirement Planning
+  - Real Estate Investing
+  - Passive Income Ideas
+  - Financial Freedom
+  - Debt Management
+  content_formats:
+  - Explainer Videos
+  - News Summaries
+  - Tutorial Guides
+  - Market Analysis
+  - Q&A Sessions
+ai_models:
+  llm:
+    provider: huggingface
+    model: meta-llama/Llama-3.2-3B-Instruct
+    api_base: https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct
+    max_tokens: 500
+    temperature: 0.7
+    system_prompt: "You are an expert finance content creator specializing in making\
+      \ complex financial concepts \naccessible to beginners. Your content should\
+      \ be educational, engaging, and actionable.\n"
+  video_generator:
+    provider: runwayml
+    model: runwayml/stable-video-diffusion
+    fps: 24
+    duration: 30
+    quality: high
+content_generation:
+  daily_videos: 2
+  weekly_videos: 14
+  topics_per_video: 3
+  topic_scoring:
+    keywords:
+    - invest
+    - stock
+    - crypto
+    - money
+    - finance
+    - wealth
+    - budget
+    - save
+    - investing
+    trending_weights: 0.4
+    evergreen_weights: 0.6
+video_creation:
+  template_style: clean_minimal
+  background_music:
+    enabled: true
+    library: royalty_free
+    volume: 0.3
+  voiceover:
+    enabled: true
+    model: openai-whisper-small
+    voice: female
+    language: en-US
+  subtitles:
+    enabled: true
+    font_size: 24
+    color: white
+automation:
+  schedule:
+    videos_per_day: 2
+    upload_time: 09:00
+  agents:
+  - name: content_researcher
+    role: Researches trending finance topics and keywords
+    frequency: hourly
+  - name: content_writer
+    role: Writes video scripts and descriptions
+    frequency: daily
+  - name: video_creator
+    role: Creates videos from scripts
+    frequency: daily
+  - name: uploader
+    role: Uploads videos to YouTube
+    frequency: daily
+youtube:
+  enabled: true
+  upload_schedule: automatic
+  optimization:
+    keywords:
+    - finance
+    - investing
+    - money tips
+    - stock market
+    - personal finance
+    tags:
+    - education
+    - finance
+    - investing
+    - money management
+    category: Finance
+    language: en
+costs:
+  free_tiers:
+    huggingface_api: true
+    youtube: free
+    storage: free
+  estimated_monthly_cost:
+    llm_calls: 0
+    video_generation: 0
+    storage: 0
+    total: 0
+monitoring:
+  enabled: true
+  metrics:
+  - video_views
+  - engagement_rate
+  - subscriber_growth
+  - video_completion_rate
+finance_topics:
+- category: Personal Finance
+  title: 10 Simple Ways to Save \$500 This Month
+  description: Learn practical budgeting strategies to cut expenses and save money
+  keywords:
+  - budget
+  - saving
+  - frugal
+  - money tips
+  difficulty: beginner
+  estimated_duration: 2-3 minutes
+- category: Investment Strategies
+  title: 'Index Funds vs Individual Stocks: Which is Better?'
+  description: Compare the pros and cons of different investment approaches
+  keywords:
+  - index funds
+  - stocks
+  - investing
+  - comparison
+  difficulty: beginner
+  estimated_duration: 5-6 minutes
