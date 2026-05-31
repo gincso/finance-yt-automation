@@ -1,3 +1,6 @@
+# Finance YouTube Automation - Example Configuration
+# Copy this to config/config.yaml and add your actual values
+
 # Finance YouTube Automation Configuration
 project_name: "finance-yt-automation"
 version: "1.0.0"
@@ -90,20 +93,20 @@ schedule:
 
 # Output configuration
 output:
-  video_dir: "/data/data/com.termux/files/home/finance-yt-automation/data/videos"
-  script_dir: "/data/data/com.termux/files/home/finance-yt-automation/data/scripts"
-  audio_dir: "/data/data/com.termux/files/home/finance-yt-automation/data/audio"
-  thumbnail_dir: "/data/data/com.termux/files/home/finance-yt-automation/data/thumbnails"
-  upload_dir: "/data/data/com.termux/files/home/finance-yt-automation/data/uploads"
+  video_dir: "/app/data/videos"
+  script_dir: "/app/data/scripts"
+  audio_dir: "/app/data/audio"
+  thumbnail_dir: "/app/data/thumbnails"
+  upload_dir: "/app/data/uploads"
 
 # YouTube API (for future uploads)
 youtube:
   enabled: false  # Set to true when ready
   client_id: ""
   client_secret: ""
-  channel_id: ""
 
 # Hugging Face API (for free LLM access)
+# Get your token at: https://huggingface.co/settings/tokens
 huggingface:
   api_token: ""  # Add your token here
   inference_api: "https://api-inference.huggingface.co/models"
@@ -111,4 +114,4 @@ huggingface:
 # Logging
 logging:
   level: "INFO"
-  file: "/data/data/com.termux/files/home/finance-yt-automation/logs/automation.log"
+  file: "/app/logs/automation.log"

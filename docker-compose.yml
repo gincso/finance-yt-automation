@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  finance-yt-automation:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: finance-yt-automation
+    volumes:
+      # Mount data directories so they persist outside the container
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - TZ=UTC
+    restart: unless-stopped
+    # For daily automation, you can add a cron job
+    # command: sh -c "pip install -r requirements.txt && python3 main.py"

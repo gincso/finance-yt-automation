@@ -1,28 +1,18 @@
-# Finance YouTube Channel Automation - Requirements
-
 # Core dependencies
-requests>=2.31.0
-pyyaml>=6.0.1
+pyyaml>=6.0
 python-dateutil>=2.8.2
 
-# Video processing (optional - for advanced video creation)
-# ffmpeg-python>=0.2.0  # Install system ffmpeg first
-# pillow>=10.0.0
+# Optional: For actual LLM API calls
+# huggingface-hub>=0.16.0
+# openai>=1.0.0
 
-# Optional: For more sophisticated video generation
-# stable-video-diffusion  # Open-source video AI
-# heygen  # Free tier available
-# runwayml  # Free tier available
+# Optional: For video processing
+# ffmpeg-python>=0.2.0
 
 # Optional: For YouTube API
+# google-auth>=2.0.0
 # google-api-python-client>=2.0.0
-# google-auth-httplib2>=0.2.0
-# google-auth-oauthlib>=1.0.0
 
-# Optional: For enhanced content generation
-# openai>=1.0.0  # If using OpenAI's free tier
-
-# Development tools
-# black>=23.0.0  # Code formatter
-# pytest>=7.0.0  # Testing
-# flake8>=6.0.0  # Linter
+# Docker utilities
+docker>=7.0.0
+docker-compose>=1.29.0

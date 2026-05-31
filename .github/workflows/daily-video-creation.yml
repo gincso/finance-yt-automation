@@ -36,8 +36,7 @@ jobs:
 
       - name: Create video
         run: |
-          cd scripts
-          python3 orchestrator.py --single
+          python3 scripts/orchestrator.py --single
         env:
           CONFIG_PATH: config/config.yaml
       

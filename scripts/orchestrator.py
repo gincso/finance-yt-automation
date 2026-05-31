@@ -31,8 +31,27 @@ class AutomationOrchestrator:
         
     def load_config(self, config_path: str) -> Dict:
         """Load configuration"""
-        with open(config_path, 'r') as f:
-            return json.load(f)
+        # If config_path is relative, resolve it from the current working directory
+        if not os.path.isabs(config_path):
+            # Get the directory where the script is located
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            # The config should be in the parent directory (finance-yt-automation/)
+            # If config_path is 'config/config.yaml', it should be '../config/config.yaml'
+            config_path = os.path.join(script_dir, '..', config_path)
+        
+        # Check if file exists
+        if not os.path.exists(config_path):
+            raise FileNotFoundError(f"Config file not found: {config_path}")
+        
+        # Try to load as YAML first, fall back to JSON
+        try:
+            import yaml
+            with open(config_path, 'r') as f:
+                return yaml.safe_load(f)
+        except ImportError:
+            # No PyYAML, try JSON
+            with open(config_path, 'r') as f:
+                return json.load(f)
     
     def log(self, message: str, level: str = "INFO"):
         """Log messages to file and console"""

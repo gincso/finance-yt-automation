@@ -1,368 +1,175 @@
-# Automated Finance YouTube Channel
+# Finance YouTube Automation
 
-A zero-capital, multi-agent system for creating automated finance content for YouTube with minimal human interaction.
+Automated faceless YouTube channel system for finance videos using multi-agent architecture and free LLMs.
 
-## 🎯 Features
+## 🚀 Features
 
-- ✅ **Zero Startup Capital** - Uses free tools and APIs
-- ✅ **Multi-Agent Architecture** - Specialized agents for different tasks
-- ✅ **Free LLM Models** - Open-source models via Hugging Face
-- ✅ **Open-Source Video Generation** - No expensive video AI required
-- ✅ **Minimal Human Interaction** - Fully automated workflow
-- ✅ **Content Variety** - 50+ finance topics covered
-- ✅ **Scalable** - Can produce multiple videos per day
-
-## 🚀 Quick Start
-
-### Local Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/finance-yt-automation.git
-cd finance-yt-automation
-
-# Run setup script
-./setup.sh
-
-# Create your first video
-python3 scripts/orchestrator.py --single
-
-# Create multiple videos
-python3 scripts/orchestrator.py --batch 5
-
-# Continuous mode (auto-schedule)
-python3 scripts/orchestrator.py --continuous
-```
-
-### GitHub Actions Automation
-
-This repository includes GitHub Actions workflows for automated content creation:
-
-- **Daily Video Creation** - Runs every day at 9:00 AM UTC
-- **Batch Video Creation** - Create multiple videos manually
-- **YouTube Upload** - Upload videos to YouTube automatically
-- **Content Monitoring** - Generate production reports
+- **Multi-Agent System**: Content Researcher, Writer, Video Creator, and Uploader agents
+- **Zero Startup Cost**: Uses free LLMs and open-source tools
+- **50+ Topics**: Covers budgeting, investing, crypto, retirement, real estate, debt management, and passive income
+- **Daily Automation**: Cron job configured for daily video creation at 9:00 AM UTC
+- **Ready to Run**: Complete, runnable system with mock implementations
 
 ## 📁 Project Structure
 
 ```
 finance-yt-automation/
-├── .github/
-│   └── workflows/          # GitHub Actions workflows
-│       ├── daily-video-creation.yml
-│       ├── batch-video-creation.yml
-│       ├── youtube-upload.yml
-│       └── monitoring.yml
+├── agents/
+│   ├── researcher.py      # Researches finance topics
+│   ├── writer.py          # Creates video scripts
+│   ├── video_creator.py   # Generates videos
+│   └── uploader.py        # Uploads to YouTube
 ├── scripts/
-│   ├── generate_content.py    # Content generation agent
-│   ├── create_video.py        # Video creation agent
-│   ├── orchestrator.py        # Main orchestration
-│   ├── upload_youtube.py      # YouTube upload script
-│   └── create_upload_script.py # Upload script generator
-├── content/
-│   └── topics.py             # 50+ finance topics
-├── output/                    # Generated content
-│   └── videos/               # Video scripts and metadata
-├── logs/                      # Execution logs
+│   ├── setup.sh           # Installation script
+│   └── run_daily.py       # Daily automation script
 ├── config/
-│   └── config.yaml           # Configuration file
-├── requirements.txt          # Python dependencies
-├── setup.sh                  # Automated setup script
-├── README.md                 # This file
-├── QUICKSTART.md             # Quick start guide
-├── COMPLETE_SETUP_GUIDE.md   # Complete setup guide
-└── PROJECT_SUMMARY.md        # Project overview
+│   └── config.yaml        # Main configuration
+├── data/
+│   ├── videos/            # Generated videos
+│   ├── scripts/           # Generated scripts
+│   ├── audio/             # Generated audio
+│   ├── thumbnails/        # Generated thumbnails
+│   └── uploads/           # Uploaded videos
+├── logs/                  # Automation logs
+├── main.py                # Main orchestrator
+├── requirements.txt       # Python dependencies
+└── README.md              # This file
 ```
 
-## 🤖 Multi-Agent System
+## 🛠️ Installation
 
-### 1. Content Researcher Agent
-- Selects trending finance topics
-- Identifies relevant keywords
-- Categorizes content by difficulty level
-
-### 2. Content Writer Agent
-- Generates engaging video scripts
-- Uses free LLM (Hugging Face)
-- Creates optimized descriptions
-
-### 3. Video Creator Agent
-- Splits scripts into scenes
-- Generates visual descriptions
-- Creates video structure
-
-### 4. Uploader Agent
-- Prepares YouTube metadata
-- Optimizes for SEO
-- Manages upload scheduling
-
-## 💰 Cost Analysis
-
-### Current Implementation (Free)
-
-| Component | Cost | Notes |
-|-----------|------|-------|
-| LLM API | $0 | Free tier available |
-| YouTube | $0 | Free platform |
-| Storage | $0 | Free (local) |
-| **Total** | **$0** | |
-
-### Optional Enhancements (Low Cost)
-
-| Service | Cost | Notes |
-|---------|------|-------|
-| HeyGen | $0-$10 | Free tier available |
-| RunwayML | $0-$25 | Limited free credits |
-| Pexels API | $0 | Free tier |
-| **Total** | **$0-$35** | |
-
-## 📊 Content Topics
-
-The system includes 50+ finance topics covering:
-
-- **Personal Finance**: Budgeting, saving, emergency funds
-- **Investment Strategies**: Stocks, index funds, compound interest
-- **Cryptocurrency**: Bitcoin, Ethereum, security
-- **Retirement Planning**: 401k, IRA, tax advantages
-- **Real Estate Investing**: REITs, rental properties, ROI
-- **Debt Management**: Snowball method, credit scores
-- **Passive Income**: Dividends, digital products
-
-## 🎬 Usage
-
-### Single Video Workflow
+### 1. Install Dependencies
 
 ```bash
-python3 scripts/orchestrator.py --single
+cd ~/finance-yt-automation
+pip install -r requirements.txt
 ```
 
-### Batch Processing
+### 2. Configure API Keys
 
-```bash
-python3 scripts/orchestrator.py --batch 5
-```
-
-### Continuous Mode
-
-```bash
-python3 scripts/orchestrator.py --continuous
-```
-
-### Manual Upload
-
-```bash
-# Set YouTube API key
-export YOUTUBE_API_KEY="***"
-
-# Create upload script
-python3 scripts/create_upload_script.py
-
-# Upload
-python3 scripts/upload_youtube.py
-```
-
-## ⚙️ Configuration
-
-Edit `config/config.yaml` to customize:
+Edit `config/config.yaml` and add your API keys:
 
 ```yaml
-# Content settings
-content_strategy:
-  channel_name: "Wealth Wisdom"
-  target_audience: "Beginners to intermediate investors"
+huggingface:
+  api_token: "YOUR_HUGGINGFACE_TOKEN"  # Get free token at https://huggingface.co/settings/tokens
 
-# AI model settings
-ai_models:
-  llm:
-    model: "meta-llama/Llama-3.2-3B-Instruct"
-    temperature: 0.7
-
-# Video settings
-video_creation:
-  duration: 30
-  quality: "high"
-
-# Automation settings
-automation:
-  schedule:
-    videos_per_day: 2
-    upload_time: "09:00"
+youtube:
+  enabled: true
+  client_id: "YOUR_YOUTUBE_CLIENT_ID"
+  client_secret: "YOUR_YOUTUBE_CLIENT_SECRET"
 ```
 
-## 🔧 GitHub Actions
+### 3. Set Up Cron Job (Daily Automation)
 
-### Enable Workflows
+```bash
+crontab -e
+```
 
-1. Go to **Settings** → **Actions** → **General**
-2. Under **Workflow permissions**, select **Read and write permissions**
-3. Click **Save**
+Add this line for daily runs at 9:00 AM UTC:
 
-### Configure Secrets
+```
+0 9 * * * cd /data/data/com.termux/files/home/finance-yt-automation && python main.py >> logs/cron.log 2>&1
+```
 
-1. Go to **Settings** → **Secrets and variables** → **Actions**
-2. Add the following secrets:
+## 🎯 Usage
 
-| Secret Name | Description |
-|-------------|-------------|
-| `HUGGINGFACE_TOKEN` | Your Hugging Face API token |
-| `YOUTUBE_API_KEY` | Your YouTube Data API key |
+### Run Once
 
-### Trigger Workflows
+```bash
+cd ~/finance-yt-automation
+python main.py
+```
 
-- **Daily Video Creation**: Runs automatically at 9:00 AM UTC
-- **Batch Video Creation**: Manual trigger with batch size
-- **YouTube Upload**: Runs at 10:00 AM UTC (after video creation)
-- **Content Monitoring**: Runs at 11:00 AM UTC
+### Run with Specific Topic
 
-## 📈 Performance
-
-### Current Performance
-
-- Content generation: < 30 seconds per video
-- Video structure: < 10 seconds
-- Total workflow: < 1 minute per video
-- Monthly cost: $0 (free tier)
-
-### Scalability
-
-- Batch processing: Multiple videos concurrently
-- Continuous mode: Auto-scheduled uploads
-- Memory efficient: Minimal resource usage
-
-## 🛠 Troubleshooting
-
-### Common Issues
-
-1. **LLM API Errors**
-   - Check Hugging Face token
-   - Verify API quota
-   - Use fallback script generation
-
-2. **Video Creation Issues**
-   - Install FFmpeg: `pip install ffmpeg-python`
-   - Check Python dependencies
-   - Verify file permissions
-
-3. **YouTube API Issues**
-   - Verify API key
-   - Check API quota
-   - Enable YouTube Data API v3
+Edit `main.py` to select a specific topic, or modify the `select_topic()` method.
 
 ### Check Logs
 
 ```bash
-# View execution logs
-tail -f logs/automation_$(date +%Y%m%d).log
-
-# Check GitHub Actions logs
-# Go to Actions tab in repository
+tail -f logs/automation.log
 ```
 
-## 📚 Documentation
+## 📊 How It Works
 
-- **README.md** - Complete documentation (this file)
-- **QUICKSTART.md** - Quick start guide
-- **COMPLETE_SETUP_GUIDE.md** - Complete setup instructions
-- **PROJECT_SUMMARY.md** - Project overview and architecture
+1. **Research Agent**: Selects a finance topic and gathers relevant information
+2. **Writer Agent**: Creates an engaging video script based on research
+3. **Video Creator Agent**: Generates audio from script and creates video file
+4. **Uploader Agent**: Uploads video to YouTube (when configured)
 
-## 🎓 Learning Resources
+## 🎨 Supported Topics
 
-### Finance Content
+- **Budgeting**: Budgeting for Beginners, Monthly Budget, Zero-Based Budgeting, Emergency Fund
+- **Investing**: Stock Market, Dollar-Cost Averaging, Dividend Investing, ETF vs Individual Stocks
+- **Crypto**: Cryptocurrency, Bitcoin vs Ethereum, How to Buy Crypto, Stablecoins, Wallet Security
+- **Retirement**: Retirement Planning, 401(k) vs IRA, Retirement Savings, Social Security
+- **Real Estate**: Real Estate Investing, Rental Property vs REITs, Investment Properties, Tax Benefits
+- **Debt Management**: Debt Snowball vs Avalanche, Credit Card Debt, Student Loans, Debt Consolidation
+- **Passive Income**: 10 Passive Income Ideas, Dividend Stocks, Real Estate Crowdfunding, Digital Products
 
-- Investopedia - Investment education
-- Khan Academy - Financial literacy
-- Personal Finance Subreddit - Community insights
+## 🔧 Configuration
 
-### Video Creation
+Edit `config/config.yaml` to customize:
 
-- FFmpeg Documentation - Video processing
-- Pexels API - Stock footage
-- HeyGen - Text-to-video (free tier)
+- Agent models and settings
+- Topics list
+- Scheduling (time, timezone, frequency)
+- Output directories
+- API keys
 
-### Automation
+## 📝 Current Status
 
-- GitHub Actions - CI/CD
-- Cron Jobs - Scheduling
-- Python Libraries - Automation tools
+- ✅ Complete project structure
+- ✅ Multi-agent architecture
+- ✅ Mock implementations (ready for API integration)
+- ✅ Configuration system
+- ✅ Logging system
+- ✅ Documentation
+- ⏳ Ready for production (needs API keys and real implementations)
 
-## ⚠️ Legal & Compliance
+## 🚀 Next Steps
 
-### Important Notes
+1. **Add API Keys**: Get Hugging Face token and YouTube credentials
+2. **Implement Real LLM Calls**: Replace mock implementations with actual API calls
+3. **Add Video Processing**: Integrate FFmpeg for actual video generation
+4. **Configure YouTube Upload**: Set up YouTube Data API
+5. **Test Thoroughly**: Run multiple times to verify workflow
+6. **Monitor and Optimize**: Check logs and improve performance
 
-1. **Content Verification**: Always review generated content
-2. **YouTube Policies**: Follow all platform guidelines
-3. **Financial Advice**: Include proper disclaimers
-4. **Accuracy**: Verify financial information
-5. **Copyright**: Use licensed content or create original
+## 📚 Resources
 
-### Best Practices
+- [Hugging Face API](https://huggingface.co/docs/api-inference)
+- [YouTube Data API](https://developers.google.com/youtube/v3)
+- [FFmpeg](https://ffmpeg.org/)
 
-- Review all content before publishing
-- Include financial disclaimers
-- Provide educational value
-- Cite sources when appropriate
-- Stay updated with regulations
+## 💡 Tips
 
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+- Start with a few topics to test the workflow
+- Monitor logs regularly for issues
+- Adjust script length and complexity based on results
+- Use A/B testing to find best-performing topics
+- Consider adding more topics over time
 
 ## 📄 License
 
-MIT License - Feel free to use and modify for your own projects.
+MIT License - feel free to use and modify for your own projects.
 
-## 🙏 Credits
+## 🤝 Contributing
 
-- Open-source models and APIs
-- Free tools and resources
-- Community contributions
+This is a starter project. Feel free to enhance it with:
+- Real LLM API integrations
+- Better video generation
+- Advanced scheduling
+- Analytics and reporting
+- Multiple channel support
 
 ## 📞 Support
 
 For issues or questions:
-
 1. Check logs in `logs/` directory
-2. Review error messages
-3. Verify configuration
-4. Check API quotas
-5. See documentation files
-
-## 🎯 Success Metrics
-
-Track these metrics:
-
-- **Views per video**
-- **Engagement rate**
-- **Subscriber growth**
-- **Video completion rate**
-- **Click-through rate**
-
-## 🚀 Getting Started
-
-1. **Review the README.md** for complete documentation
-2. **Read QUICKSTART.md** for quick setup instructions
-3. **Run setup.sh** to initialize the project
-4. **Create your first video** with `--single` flag
-5. **Set up GitHub Actions** for automation
-6. **Upload to YouTube** and start growing!
+2. Review configuration in `config/config.yaml`
+3. Refer to this README
 
 ---
 
-**Note**: This is a demonstration system. For production use, review and validate all content before publishing.
-
-## 📊 Current Status
-
-- ✅ Multi-agent system active
-- ✅ GitHub Actions workflows configured
-- ✅ Daily automation scheduled
-- ✅ Zero startup capital
-- ✅ Ready for production
-
-**Total Cost: $0**
-**Time to First Video: < 5 minutes**
-**Monthly Output: Unlimited (with free tier limits)**
+**Built with ❤️ for automated content creation**
