@@ -51,6 +51,15 @@ data/uploads/*
 # Config (don't commit API keys)
 config/config.yaml
 
+# Environment variables (don't commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Docker
+.dockerignore
+.docker-compose.override.yml
+
 # OS
 .DS_Store
 Thumbs.db

@@ -6,12 +6,109 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: finance-yt-automation
-    volumes:
-      # Mount data directories so they persist outside the container
-      - ./data:/app/data
-      - ./logs:/app/logs
+    restart: unless-stopped
+
+    # Environment variables - Configure these in .env file
     environment:
       - TZ=UTC
+      - HUGGINGFACE_API_TOKEN=${HUGGINGFACE_API_TOKEN:-}
+      - YOUTUBE_CLIENT_ID=${YOUTUBE_CLIENT_ID:-}
+      - YOUTUBE_CLIENT_SECRET=${YOUTUBE_CLIENT_SECRET:-}
+      - YOUTUBE_REFRESH_TOKEN=${YOUTUBE_REFRESH_TOKEN:-}
+      - PYTHONUNBUFFERED=1
+
+    # Volume mounts for data persistence
+    volumes:
+      # Project configuration
+      - ./config:/app/config:ro
+      # Data directories (persist outside container)
+      - ./data:/app/data
+      # Logs
+      - ./logs:/app/logs
+      # Temporary output
+      - ./output:/app/output
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # Network configuration
+    networks:
+      - yt-automation-network
+
+    # Working directory
+    working_dir: /app
+
+    # Command - Run the main script
+    command: ["python3", "main.py"]
+
+  # Optional: Redis for caching (if needed in future)
+  redis:
+    image: redis:7-alpine
+    container_name: yt-automation-redis
     restart: unless-stopped
-    # For daily automation, you can add a cron job
-    # command: sh -c "pip install -r requirements.txt && python3 main.py"
+    volumes:
+      - redis-data:/data
+    networks:
+      - yt-automation-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Optional: PostgreSQL for database (if needed in future)
+  postgres:
+    image: postgres:15-alpine
+    container_name: yt-automation-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=yt_automation
+      - POSTGRES_USER=${POSTGRES_USER:-yt_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-yt_password}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - yt-automation-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-yt_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# Named volumes for persistence
+volumes:
+  redis-data:
+    driver: local
+  postgres-data:
+    driver: local
+
+# Custom network for service communication
+networks:
+  yt-automation-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
