@@ -19,7 +19,8 @@ WORKDIR /app
 COPY . /app/
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+#RUN pip3 install --no-cache-dir -r requirements.tt
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
 # Make scripts executable
 RUN chmod +x /app/scripts/*.sh /app/docker-entrypoint.sh
