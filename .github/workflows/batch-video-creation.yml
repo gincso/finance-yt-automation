@@ -34,12 +34,10 @@ jobs:
           mkdir -p config
           if [ ! -f config/config.yaml ]; then
             echo "Config file not found, creating from config/config.yaml"
-            cp config/config.yaml config/config.yaml
           fi
-
       - name: Create batch of videos
         run: |
-        #  cd scripts
+         cd scripts
           python3 orchestrator.py --batch ${{ github.event.inputs.batch_size }}
         env:
           CONFIG_PATH: config/config.yaml
