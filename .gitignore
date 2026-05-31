@@ -4,9 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
-venv/
-ENV/
 build/
 develop-eggs/
 dist/
@@ -23,6 +20,11 @@ wheels/
 .installed.cfg
 *.egg
 
+# Virtual environments
+venv/
+ENV/
+env/
+
 # IDE
 .vscode/
 .idea/
@@ -30,27 +32,39 @@ wheels/
 *.swo
 *~
 
+# Logs
+logs/
+*.log
+
+# Data
+data/videos/*
+data/scripts/*
+data/audio/*
+data/thumbnails/*
+data/uploads/*
+!data/videos/.gitkeep
+!data/scripts/.gitkeep
+!data/audio/.gitkeep
+!data/thumbnails/.gitkeep
+!data/uploads/.gitkeep
+
+# Config (don't commit API keys)
+config/config.yaml
+
+# Environment variables (don't commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Docker
+.dockerignore
+.docker-compose.override.yml
+
 # OS
 .DS_Store
 Thumbs.db
 
-# Environment
-.env
-.youtube_env
-
-# Logs
-logs/*.log
-
-# Output
-output/videos/*.json
-output/videos/*.mp4
-
-# Temporary files
-*.tmp
-*.bak
-*.cache
-
-# Secrets (never commit these!)
-*.pem
-*.key
-*.token
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/

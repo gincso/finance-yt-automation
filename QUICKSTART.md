@@ -1,49 +1,80 @@
-
 # Quick Start Guide
 
-## 1. Setup (One-time)
+Get your Finance YouTube Automation running in 5 minutes!
 
-Run the setup script:
-```bash
-cd ~/finance-yt-automation
-./setup.sh
-```
-
-## 2. Configure API Tokens
-
-Get free Hugging Face token from: https://huggingface.co/settings/tokens
-Get free YouTube API key from: https://console.cloud.google.com/apis/credentials
-
-## 3. Create Your First Video
+## Step 1: Install Dependencies
 
 ```bash
 cd ~/finance-yt-automation
-python3 scripts/orchestrator.py --single
+pip install -r requirements.txt
 ```
 
-## 4. Create Multiple Videos
+## Step 2: Run Once to Test
 
 ```bash
-python3 scripts/orchestrator.py --batch 5
+python3 main.py
 ```
 
-## 5. Continuous Mode
+You should see output in your terminal showing:
+- Selected topic
+- Research completed
+- Script written
+- Video created
+
+## Step 3: Check Results
 
 ```bash
-python3 scripts/orchestrator.py --continuous
+ls -la data/videos/
+ls -la data/scripts/
+ls -la data/audio/
+ls -la data/thumbnails/
 ```
 
-## 6. Check Results
+## Step 4: Set Up Daily Automation (Optional)
 
-Look in:
-- Scripts: ~/finance-yt-automation/content/scripts/
-- Videos: ~/finance-yt-automation/output/videos/
-- Logs: ~/finance-yt-automation/logs/
+```bash
+crontab -e
+```
 
-## 7. Upload to YouTube
+Add this line (runs every day at 9:00 AM UTC):
 
-Use the generated metadata files to upload manually, or integrate with YouTube API.
+```
+0 9 * * * cd /data/data/com.termux/files/home/finance-yt-automation && python3 main.py >> logs/cron.log 2>&1
+```
 
-## Cost: $0
+## Step 5: Monitor Logs
 
-All tools used have free tiers available.
+```bash
+tail -f logs/automation.log
+```
+
+## Next Steps
+
+1. **Add API Keys**: Edit `config/config.yaml` and add your Hugging Face token
+2. **Implement Real LLM Calls**: Replace mock implementations with actual API calls
+3. **Add Video Processing**: Install FFmpeg for real video generation
+4. **Configure YouTube**: Set up YouTube API for automatic uploads
+
+## Troubleshooting
+
+**No output from terminal commands?**
+- Try using `python3` instead of `python`
+- Check that pip installed successfully
+- Verify all files were created in the project directory
+
+**Import errors?**
+- Make sure you're in the project directory: `cd ~/finance-yt-automation`
+- Install dependencies: `pip install -r requirements.txt`
+
+**Permissions errors?**
+- Make scripts executable: `chmod +x scripts/*.sh`
+
+## Need Help?
+
+- Check `README.md` for detailed documentation
+- Review `config/config.yaml` for configuration options
+- Look at `logs/automation.log` for error messages
+
+---
+
+**You're ready to automate! 🚀**
